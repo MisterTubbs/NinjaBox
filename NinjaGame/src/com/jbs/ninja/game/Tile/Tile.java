@@ -33,4 +33,8 @@ public class Tile implements Tickable {
 	public static void init() {
 		tiles.put((byte) 0, Grass);
 	}
+	
+	public Tile getTile(byte id) {
+		return tiles.get(id);
+	}
 }
