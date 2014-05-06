@@ -1,11 +1,17 @@
 package com.jbs.ninja.game.Tile;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jbs.ninja.Tickable;
 import com.jbs.ninja.asset.TextureAsset;
 
 public class Tile implements Tickable {
 
+	public static HashMap<Byte, Tile> tiles = new HashMap<Byte, Tile>();
+	
+	public static Tile Grass = new TileGrass();
+	
 	private TextureAsset texture;
 	
 	public Tile(TextureAsset texture) {
@@ -22,5 +28,9 @@ public class Tile implements Tickable {
 	
 	public void dispose() {
 		texture.getTexture().dispose();
+	}
+	
+	public static void init() {
+		tiles.put((byte) 0, Grass);
 	}
 }

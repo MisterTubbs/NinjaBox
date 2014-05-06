@@ -1,9 +1,17 @@
 package com.jbs.ninja.asset;
 
-public class AssetManager {
+import com.badlogic.gdx.assets.AssetManager;
+
+public class Manager {
+	
+	public static AssetManager manager = new AssetManager();
 	
 	public static TextureAsset playButton;
 	public static TextureAsset tileGrass, tileDirt;
+	
+	public static void update() {
+		manager.update();
+	}
 	
 	public static void load() {
 		playButton = new TextureAsset("gui/play.png");
