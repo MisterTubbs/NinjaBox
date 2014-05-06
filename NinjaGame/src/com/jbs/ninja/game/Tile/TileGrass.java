@@ -1,10 +1,10 @@
 package com.jbs.ninja.game.Tile;
 
-import com.jbs.ninja.asset.Manager;
+import com.jbs.ninja.asset.Assets;
 
 public class TileGrass extends Tile {
 
 	public TileGrass() {
-		super(Manager.tileGrass);
+		super(Assets.tileGrass);
 	}
 }
