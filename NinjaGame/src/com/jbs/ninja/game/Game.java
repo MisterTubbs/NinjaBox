@@ -3,7 +3,6 @@ package com.jbs.ninja.game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jbs.ninja.Screen;
-import com.jbs.ninja.game.Tile.Tile;
 
 public class Game implements Screen {
 

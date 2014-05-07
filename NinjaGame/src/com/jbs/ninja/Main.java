@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.jbs.ninja.asset.AssetManager;
+import com.jbs.ninja.asset.Manager;
 import com.jbs.ninja.gui.MainMenu;
 
 public class Main implements ApplicationListener, Tickable {
@@ -31,7 +31,7 @@ public class Main implements ApplicationListener, Tickable {
 	
 	@Override
 	public void create() {	
-		AssetManager.load();
+		Manager.load();
 		
 		shapeRenderer = new ShapeRenderer();
 		

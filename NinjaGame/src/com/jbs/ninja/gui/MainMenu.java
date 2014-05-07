@@ -1,13 +1,9 @@
 package com.jbs.ninja.gui;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jbs.ninja.GameObject;
-import com.jbs.ninja.Main;
 
 public class MainMenu implements GameObject {
-
-	private BitmapFont font = Main.menuFont;
 
 	private Button play;
 	
