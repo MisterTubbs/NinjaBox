@@ -2,7 +2,7 @@ package com.jbs.ninja.asset;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-public class Manager {
+public class Assets {
 	
 	public static AssetManager manager = new AssetManager();
 	
