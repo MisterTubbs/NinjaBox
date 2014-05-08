@@ -1,24 +1,35 @@
 package com.jbs.ninja.asset;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class TextureAsset {
+public class TextureAsset extends TextureRegion {
+	public String texturePath;
+	public String textureID;
+	public boolean loaded = false;
+	boolean regionDefined = false;
 	
-	private Texture texture;
-	
-	public TextureAsset(String location, int x, int y, int size) {
-		TextureAsset atlas = new TextureAsset(location);
-		TextureRegion texture = new TextureRegion(atlas.getTexture(), x, y, size, size);
-		this.texture = texture.getTexture();
+	/**Updates any changes to the texture reference for this instance.
+	 * Useful if you want to do a skin swap for instance by calling {@link Assets#setAlias()}
+	 * @return Convenience for when you want to update a texture while passing it to a method
+	 */
+	public TextureAsset update() {
+		this.texturePath = Assets.getAlias( textureID );
+		this.setTexture( Assets.loadTexture( texturePath ) );
+		if(!regionDefined) this.setRegion( getTexture() );
+		return this;
 	}
 	
-	public TextureAsset(String locaton) {
-		texture = new Texture(Gdx.files.internal(locaton));
+	@Override
+	public void setRegion( int x, int y, int w, int h ) {
+		regionDefined = true;
+		super.setRegion(x, y, w, h);
 	}
 	
-	public Texture getTexture() {
-		return texture;
+	//wrapper methods
+	public float getWidth() { 
+		return getTexture().getWidth();
+	}
+	public float getHeight() {
+		return getTexture().getHeight();
 	}
 }
