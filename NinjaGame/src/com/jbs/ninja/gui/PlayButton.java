@@ -7,13 +7,7 @@ import com.jbs.ninja.game.Game;
 public class PlayButton extends Button {
 
 	public PlayButton() {
-		super(Assets.playButton, 
-					Main.centered.x - (Assets.playButton.getTexture().getWidth() / 2), 
-					Main.centered.y, 
-					Assets.playButton.getTexture().getWidth(), 
-					Assets.playButton.getTexture().getHeight()
-			);
-
+		super(Assets.playButton, Main.centered.x - (Assets.playButton.getTexture().getWidth() / 2), Main.centered.y, Assets.playButton.getTexture().getWidth(), Assets.playButton.getTexture().getHeight());
 	}
 
 	@Override

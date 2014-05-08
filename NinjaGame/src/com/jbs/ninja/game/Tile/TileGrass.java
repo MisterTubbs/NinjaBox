@@ -5,6 +5,11 @@ import com.jbs.ninja.asset.Assets;
 public class TileGrass extends Tile {
 
 	public TileGrass() {
-		super(Assets.tileGrass);
+		super(Assets.tileGrass); 
+	}
+
+	@Override
+	public byte getID() {
+		return 1;
 	}
 }

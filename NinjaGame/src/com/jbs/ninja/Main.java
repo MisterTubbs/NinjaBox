@@ -67,8 +67,10 @@ public class Main implements ApplicationListener, Tickable {
 		batch.end();
 		
 		if(debug) {
-			Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), 0);
+			Vector2 tempPos = InputProxy.getTouch();
+			Vector3 touchPos = new Vector3(tempPos.x, tempPos.y, 0);
 			
+			shapeRenderer.setProjectionMatrix(camera.combined);
 			shapeRenderer.begin(ShapeType.FilledRectangle);
 			shapeRenderer.filledRect(touchPos.x, touchPos.y, 32, 32);
 			shapeRenderer.end();

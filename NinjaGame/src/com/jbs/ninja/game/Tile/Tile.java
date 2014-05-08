@@ -4,17 +4,19 @@ import java.util.HashMap;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jbs.ninja.Tickable;
-import com.jbs.ninja.asset.TextureAsset;
+import com.jbs.ninja.asset.TextureRegionAsset;
 
-public class Tile implements Tickable {
+public abstract class Tile implements Tickable {
 
+	public static int TILESIZE = 64;
 	public static HashMap<Byte, Tile> tiles = new HashMap<Byte, Tile>();
 	
 	public static Tile Grass = new TileGrass();
+	public static Tile Dirt = new TileDirt();
 	
-	private TextureAsset texture;
+	private TextureRegionAsset texture;
 	
-	public Tile(TextureAsset texture) {
+	public Tile(TextureRegionAsset texture) {
 		this.texture = texture;
 	}
 	
@@ -23,18 +25,17 @@ public class Tile implements Tickable {
 	}
 
 	public void render(SpriteBatch batch, int x, int y) {
-		batch.draw(texture.getTexture(), x, y, texture.getTexture().getWidth(), texture.getTexture().getHeight());
+		batch.draw(texture.getTexture(), x, y, TILESIZE, TILESIZE);
 	}
 	
-	public void dispose() {
-		texture.getTexture().dispose();
-	}
+	public abstract byte getID();
 	
 	public static void init() {
-		tiles.put((byte) 0, Grass);
+		tiles.put((byte) 1, Grass);
+		tiles.put((byte) 2, Dirt);
 	}
-	
-	public Tile getTile(byte id) {
+
+	public static Tile getTile(byte id) {
 		return tiles.get(id);
 	}
 }
