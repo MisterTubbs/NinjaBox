@@ -12,6 +12,6 @@ public class PlayButton extends Button {
 
 	@Override
 	public void onClick() {
-		Main.activeGame.switchState(new Game());
+		Main.activeGame.switchState(new Game(Main.activeGame.getCamera()));
 	}
 }

@@ -3,12 +3,11 @@ package com.jbs.ninja.game.level;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.jbs.ninja.GameObject;
 import com.jbs.ninja.InputProxy;
-import com.jbs.ninja.Main;
+import com.jbs.ninja.Renderable;
 import com.jbs.ninja.game.Tile.Tile;
 
-public class TileMap implements GameObject {
+public class TileMap implements Renderable {
 
 	private byte[][] tiles;
 	private int width, height;
@@ -29,11 +28,10 @@ public class TileMap implements GameObject {
 		}
 	}
 
-	@Override
-	public void tick() {
+	public void tick(Vector2 offset) {
 		if(Gdx.input.isTouched()) {
 			Vector2 touchPos = InputProxy.getTouch();
-			placeTile((int) touchPos.x, (int) touchPos.y, Tile.Grass.getID());
+			placeTile((int) touchPos.x + (int) offset.x, (int) touchPos.y + (int) offset.y, Tile.Grass.getID());
 		}
 	}
 
@@ -43,4 +41,13 @@ public class TileMap implements GameObject {
 		if(tx < 0 || tx >= width || ty < 0 || ty >= height) return;
 		else tiles[tx][ty] = id;
 	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
 }
+ 

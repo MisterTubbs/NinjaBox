@@ -100,4 +100,8 @@ public class Main implements ApplicationListener, Tickable {
 	@Override
 	public void resume() {
 	}
+
+	public OrthographicCamera getCamera() {
+		return camera;
+	}
 }
