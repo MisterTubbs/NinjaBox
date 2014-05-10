@@ -10,12 +10,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.jbs.ninja.asset.Assets;
 import com.jbs.ninja.gui.MainMenu;
 
 public class Main implements ApplicationListener, Tickable {
 	
+	public static OrthographicCamera camera; // only one main right? camera is pretty useful everywhere
 	public static Main activeGame;
 	public static BitmapFont menuFont;
 	public static Vector2 screenSize, centered, actualScreenSize;
@@ -24,13 +24,14 @@ public class Main implements ApplicationListener, Tickable {
 	private GameObject currentState, lastState;
 	private SpriteBatch batch;
 	private ShapeRenderer shapeRenderer;
-	private OrthographicCamera camera;
+	
 	private Color currentClearColor;
 	
 	private boolean debug = true;
 	
 	@Override
 	public void create() {	
+		Gdx.input.setInputProcessor( new InputProxy() );
 		Assets.load();
 		
 		shapeRenderer = new ShapeRenderer();
@@ -54,7 +55,8 @@ public class Main implements ApplicationListener, Tickable {
 	}
 
 	@Override
-	public void render() {	
+	public void render() {
+		
 		Gdx.gl.glClearColor(currentClearColor.r, currentClearColor.g, currentClearColor.b, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -67,14 +69,14 @@ public class Main implements ApplicationListener, Tickable {
 		batch.end();
 		
 		if(debug) {
-			Vector2 tempPos = InputProxy.getTouch();
-			Vector3 touchPos = new Vector3(tempPos.x, tempPos.y, 0);
+			Vector2 touchPos = InputProxy.screenToWorld( InputProxy.getTouchRaw() );
 			
 			shapeRenderer.setProjectionMatrix(camera.combined);
 			shapeRenderer.begin(ShapeType.FilledRectangle);
-			shapeRenderer.filledRect(touchPos.x, touchPos.y, 32, 32);
+			shapeRenderer.filledRect(touchPos.x, touchPos.y, 12, 12);
 			shapeRenderer.end();
 		}
+		InputProxy.clean();
 	}
 	
 	@Override

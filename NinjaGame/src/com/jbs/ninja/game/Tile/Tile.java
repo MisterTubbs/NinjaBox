@@ -1,22 +1,27 @@
 package com.jbs.ninja.game.Tile;
 
-import java.util.HashMap;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jbs.ninja.Tickable;
-import com.jbs.ninja.asset.TextureRegionAsset;
+import com.jbs.ninja.asset.Assets;
+import com.jbs.ninja.asset.TextureAsset;
 
 public abstract class Tile implements Tickable {
 
-	public static int TILESIZE = 64;
-	public static HashMap<Byte, Tile> tiles = new HashMap<Byte, Tile>();
+	public static final int TILESIZE = 64;
 	
-	public static Tile Grass = new TileGrass();
-	public static Tile Dirt = new TileDirt();
+	//no hash map needed, arrays are faster than hash map lookups too
+	public static final byte NONE = 0;
+	public static final byte GRASS = 1;
+	public static final byte DIRT = 2;
+	public static final Tile tileTypes[] = {
+		null,
+		new TileGrass(),
+		new TileDirt()
+	};
 	
-	private TextureRegionAsset texture;
+	private TextureAsset texture;
 	
-	public Tile(TextureRegionAsset texture) {
+	public Tile(TextureAsset texture) {
 		this.texture = texture;
 	}
 	
@@ -24,18 +29,18 @@ public abstract class Tile implements Tickable {
 	public void tick() {
 	}
 
-	public void render(SpriteBatch batch, int x, int y) {
-		batch.draw(texture.getTexture(), x, y, TILESIZE, TILESIZE);
+	public void render(SpriteBatch batch, float x, float y) {
+		batch.draw(texture, x, y, TILESIZE, TILESIZE );
+	}
+	public void render(SpriteBatch batch, int tileID, float x, float y) {
+		batch.draw(Assets.tileset.getTile(tileID), x, y, TILESIZE, TILESIZE );
 	}
 	
+	//this is kind of annoying/redundant but no valid reason to remove it yet.
 	public abstract byte getID();
-	
-	public static void init() {
-		tiles.put((byte) 1, Grass);
-		tiles.put((byte) 2, Dirt);
-	}
 
 	public static Tile getTile(byte id) {
-		return tiles.get(id);
+		if(id <= 0 || id >= tileTypes.length) return null;
+		return tileTypes[id];
 	}
 }
