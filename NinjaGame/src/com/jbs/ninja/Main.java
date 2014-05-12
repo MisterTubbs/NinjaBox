@@ -27,7 +27,7 @@ public class Main implements ApplicationListener, Tickable {
 	
 	private Color currentClearColor;
 	
-	private boolean debug = true;
+	private boolean debug = false;
 	
 	@Override
 	public void create() {	
