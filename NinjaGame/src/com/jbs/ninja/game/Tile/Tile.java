@@ -9,6 +9,7 @@ public abstract class Tile implements Tickable {
 
 	public static final int TILESIZE = 64;
 	
+	//no hash map needed, arrays are faster than hash map lookups too
 	public static final byte NONE = 0;
 	public static final byte GRASS = 1;
 	public static final byte DIRT = 2;
@@ -35,6 +36,7 @@ public abstract class Tile implements Tickable {
 		batch.draw(Assets.tileset.getTile(tileID), x, y, TILESIZE, TILESIZE );
 	}
 	
+	//this is kind of annoying/redundant but no valid reason to remove it yet.
 	public abstract byte getID();
 
 	public static Tile getTile(byte id) {

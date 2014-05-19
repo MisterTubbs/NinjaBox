@@ -14,36 +14,30 @@ import com.jbs.ninja.asset.Assets;
 import com.jbs.ninja.gui.MainMenu;
 
 public class Main implements ApplicationListener, Tickable {
-	
-	public static OrthographicCamera camera; 
+	public static final Vector2 screenSize = new Vector2(1280, 720);
+	public static final Vector2 centered = new Vector2(screenSize.x / 2, screenSize.y / 2);
+	public static OrthographicCamera camera; // only one main right? camera is pretty useful everywhere
 	public static Main activeGame;
-	public static BitmapFont menuFont;
-	public static Vector2 screenSize, centered, actualScreenSize;
+	public static Vector2 actualScreenSize;
 	public static float aspectRatio;
 	
 	private GameObject currentState, lastState;
 	private SpriteBatch batch;
-	private ShapeRenderer shapeRenderer;
 	
 	private Color currentClearColor;
 	
-	private boolean debug = false;
-	
 	@Override
 	public void create() {	
+		Debug.init();
 		Gdx.input.setInputProcessor( new InputProxy() );
 		Assets.load();
-		
-		shapeRenderer = new ShapeRenderer();
-		
+
 		activeGame = this;
 		actualScreenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		screenSize = new Vector2(1280, 720);
+		
 		aspectRatio = screenSize.y / screenSize.x;
-		centered = new Vector2(screenSize.x / 2, screenSize.y / 2);
 		camera = new OrthographicCamera(actualScreenSize.x, actualScreenSize.x * aspectRatio);
 		camera.setToOrtho(false, (int) screenSize.x, (int) screenSize.y);
-		menuFont = new BitmapFont();
 		currentState = new MainMenu();
 		lastState = currentState;
 		batch = new SpriteBatch();
@@ -64,18 +58,16 @@ public class Main implements ApplicationListener, Tickable {
 		batch.setProjectionMatrix(camera.combined);
 		
 		tick();
+		Debug.begin();
 		batch.begin();
+		
 		currentState.render(batch);
 		batch.end();
 		
-		if(debug) {
-			Vector2 touchPos = InputProxy.screenToWorld( InputProxy.getTouchRaw() );
-			
-			shapeRenderer.setProjectionMatrix(camera.combined);
-			shapeRenderer.begin(ShapeType.FilledRectangle);
-			shapeRenderer.filledRect(touchPos.x, touchPos.y, 12, 12);
-			shapeRenderer.end();
-		}
+		Vector2 touchPos = InputProxy.screenToWorld( InputProxy.getTouchRaw() );
+		Debug.drawRect( touchPos.x,  touchPos.y, 12, 12 );
+		
+		Debug.end();
 		InputProxy.clean();
 	}
 	

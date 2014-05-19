@@ -25,7 +25,7 @@ public class Editor implements GameObject {
 
 	int gridX = 32;
 	int gridY = 32;
-	byte activeTile = Tile.DIRT;
+	byte activeTile = 1;
 	TileMap map;
 	EditorMouse mouseState = new EditorMouse();
 	
@@ -79,7 +79,7 @@ public class Editor implements GameObject {
 
 	@Override
 	public void render(SpriteBatch batch) {
-		//map.render( batch );
+		map.render( batch );
 		
 		Vector2 m = InputProxy.screenToWorld( InputProxy.getTouchRaw() );
 		TextureAsset tilePreview = Assets.tileset.getTile( activeTile );
