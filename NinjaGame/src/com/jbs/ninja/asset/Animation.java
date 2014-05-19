@@ -17,6 +17,7 @@ public class Animation implements Tickable {
 			currentIndex++;
 			currentTime = 0;
 		}
+		if(currentIndex >= set.getTextures().length - 1) currentIndex = 0;
 		currentTime++;
 	}
 	
