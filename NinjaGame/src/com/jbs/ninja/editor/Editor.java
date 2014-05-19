@@ -13,7 +13,7 @@ import com.jbs.ninja.game.Tile.Tile;
 import com.jbs.ninja.game.level.TileMap;
 
 public class Editor implements GameObject {
-	
+
 	class EditorMouse {
 		int button;
 		int pointer;
@@ -28,24 +28,23 @@ public class Editor implements GameObject {
 	byte activeTile = 1;
 	TileMap map;
 	EditorMouse mouseState = new EditorMouse();
-	
-	public Editor( TileMap map ) {
+
+	public Editor(TileMap map) {
 		this.map = map;
 	}
-	
-	void OnClick( EditorMouse m ) {
+
+	void OnClick(EditorMouse m) {
 	}
-	void OnPress( EditorMouse m ) {
-		Vector2 mouse = InputProxy.screenToWorld( InputProxy.getTouchRaw() );
-		map.placeTile((int)mouse.x / Tile.TILESIZE, (int)mouse.y / Tile.TILESIZE, activeTile);
+
+	void OnPress(EditorMouse m) {
+		Vector2 mouse = InputProxy.screenToWorld(InputProxy.getTouchRaw());
+		map.placeTile((int) mouse.x / Tile.TILESIZE, (int) mouse.y / Tile.TILESIZE, activeTile);
 	}
-	
+
 	public void Save() {
-		
 	}
-	
+
 	public void Load() {
-		
 	}
 
 	@Override
@@ -53,39 +52,38 @@ public class Editor implements GameObject {
 		Vector2 touch = InputProxy.getTouch();
 		float mx = mouseState.x = touch.x;
 		float my = mouseState.y = touch.y;
-		mouseState.tileX = (int) (mx/gridX);
-		mouseState.tileY = (int) (my/gridY);
+		mouseState.tileX = (int) (mx / gridX);
+		mouseState.tileY = (int) (my / gridY);
 		mouseState.scroll = InputProxy.Scroll;
-		
+
 		activeTile -= InputProxy.Scroll;
-		
-		if(Gdx.input.justTouched()) {
+
+		if (Gdx.input.justTouched()) {
 			mouseState.xStart = mx;
 			mouseState.yStart = my;
-			OnClick( mouseState );
-		}
-		if(Gdx.input.isTouched()) {
-			OnPress( mouseState );
+			OnClick(mouseState);
 		}
 		
-		float panSpeed = 10;
-		if(Gdx.input.isKeyPressed( Keys.LEFT )) {
-			Main.camera.translate( -panSpeed,0 );
+		if (Gdx.input.isTouched()) {
+			OnPress(mouseState);
 		}
-		if(Gdx.input.isKeyPressed( Keys.RIGHT )) {
-			Main.camera.translate( panSpeed,0 );
+
+		float panSpeed = 10;
+		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+			Main.camera.translate(-panSpeed, 0);
+		}
+		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+			Main.camera.translate(panSpeed, 0);
 		}
 	}
 
 	@Override
 	public void render(SpriteBatch batch) {
-		map.render( batch );
-		
-		Vector2 m = InputProxy.screenToWorld( InputProxy.getTouchRaw() );
-		TextureAsset tilePreview = Assets.tileset.getTile( activeTile );
-		if(tilePreview!=null)
-			batch.draw( tilePreview, m.x, m.y,Tile.TILESIZE, Tile.TILESIZE );
+		map.render(batch);
+
+		Vector2 m = InputProxy.screenToWorld(InputProxy.getTouchRaw());
+		TextureAsset tilePreview = Assets.tileset.getTile(activeTile);
+		if (tilePreview != null)
+			batch.draw(tilePreview, m.x, m.y, Tile.TILESIZE, Tile.TILESIZE);
 	}
-	
-	
 }

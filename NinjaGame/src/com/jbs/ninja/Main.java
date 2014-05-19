@@ -5,10 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.jbs.ninja.asset.Assets;
 import com.jbs.ninja.gui.MainMenu;
@@ -65,7 +62,7 @@ public class Main implements ApplicationListener, Tickable {
 		batch.end();
 		
 		Vector2 touchPos = InputProxy.screenToWorld( InputProxy.getTouchRaw() );
-		Debug.drawRect( touchPos.x,  touchPos.y, 12, 12 );
+		Debug.drawRect(touchPos.x,  touchPos.y, 12, 12);
 		
 		Debug.end();
 		InputProxy.clean();

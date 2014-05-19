@@ -28,7 +28,6 @@ public class InputProxy implements InputProcessor {
 	public static void clean() {
 		Scroll = 0;
 	}
-
 	
 	@Override
 	public boolean keyDown(int keycode) {
